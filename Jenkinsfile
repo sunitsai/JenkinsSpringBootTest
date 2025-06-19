@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/sunitsai/JenkinsSpringBootTest.git'
+                git url: 'https://github.com/sunitsai/JenkinsSpringBootTest.git', branch
             }
         }
         stage('Build') {
