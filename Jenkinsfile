@@ -2,39 +2,33 @@ pipeline {
     agent any
 
     tools {
-        maven 'M3' 
+        maven 'M3'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone Repo') {
             steps {
                 git url: 'https://github.com/sunitsai/JenkinsSpringBootTest.git', branch: 'main'
             }
         }
-        stage('Build') {
+
+        stage('Build App') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean install'
             }
         }
-        stage('Test') {
+
+        stage('Test API') {
             steps {
                 sh 'mvn test'
             }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
-                }
-            }
         }
-        stage('Run Spring Boot App') {
+
+        stage('Run App') {
             steps {
-                sh 'nohup mvn spring-boot:run &'
+                sh 'java -jar target/*.jar &'
+                echo 'Spring Boot App Started!'
             }
-        }
-    }
-    post {
-        always {
-            echo 'Pipeline completed.'
         }
     }
 }
