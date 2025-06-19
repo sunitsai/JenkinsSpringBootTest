@@ -11,7 +11,7 @@ import java.util.Optional;
 public class BookController {
     private final BookRepo bookRepository;
 
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepo bookRepository) {
         this.bookRepository = bookRepository;
     }
 
